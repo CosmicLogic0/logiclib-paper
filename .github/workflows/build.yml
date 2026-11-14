@@ -1,4 +1,4 @@
-name: Build
+name: Build and test
 
 on:
   push:
@@ -24,3 +24,43 @@ jobs:
         with:
           name: cosmiclib-paper-jar
           path: build/libs/*.jar
+
+  # Starts a real Paper server on every target version with CosmicLib and checks the log.
+  paper-test:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { mc: "1.12.2", java: 8 }
+          - { mc: "1.16.5", java: 11 }
+          - { mc: "1.18.2", java: 17 }
+          - { mc: "1.19.2", java: 17 }
+          - { mc: "1.20.1", java: 17 }
+          - { mc: "1.21.1", java: 21 }
+          - { mc: "1.21.11", java: 21 }
+          - { mc: "26.1.2", java: 25 }
+          - { mc: "26.2", java: 25 }
+          - { mc: "26.3", java: 25 }
+    name: paper-test (${{ matrix.mc }})
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: cosmiclib-paper-jar
+          path: jars
+      - name: Download Paper ${{ matrix.mc }}
+        run: |
+          mkdir -p server/plugins && cd server
+          bash ../ci/get-paper.sh "${{ matrix.mc }}"
+          find ../jars -name "cosmiclib-paper-*.jar" ! -name "*-sources.jar" -exec cp {} plugins/ \;
+          ls plugins
+      - name: Start server and check CosmicLib
+        run: |
+          chmod +x ci/server-test.sh
+          ci/server-test.sh server "CosmicLib for Paper .* running on Minecraft" -- java -Xmx1500M -jar paper.jar nogui
