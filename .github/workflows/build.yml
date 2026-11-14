@@ -64,3 +64,20 @@ jobs:
         run: |
           chmod +x ci/server-test.sh
           ci/server-test.sh server "LogicLib for Paper .* running on Minecraft" -- java -Xmx1500M -jar paper.jar nogui
+
+  # After every test passes: print the jar's checksum and base64 so Claude
+  # (whose workspace can't download artifacts) can take the exact tested jar.
+  export:
+    needs: [paper-test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: logiclib-paper-jar
+          path: jars
+      - name: Print tested jar
+        run: |
+          for f in $(find jars -name '*.jar' ! -name '*-sources.jar' | sort); do
+            echo "JAR $(basename $f) $(stat -c%s $f) $(sha256sum $f | cut -d' ' -f1)"
+            echo "B64BEGIN $(basename $f)"; base64 -w 0 $f; echo; echo "B64END"
+          done
