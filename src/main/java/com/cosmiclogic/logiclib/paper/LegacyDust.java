@@ -1,4 +1,4 @@
-package com.cosmiclogic.cosmiclib.paper;
+package com.cosmiclogic.logiclib.paper;
 
 import org.bukkit.Color;
 import org.bukkit.Particle;

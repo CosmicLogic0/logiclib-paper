@@ -22,10 +22,10 @@ jobs:
       - name: Upload jar
         uses: actions/upload-artifact@v4
         with:
-          name: cosmiclib-paper-jar
+          name: logiclib-paper-jar
           path: build/libs/*.jar
 
-  # Starts a real Paper server on every target version with CosmicLib and checks the log.
+  # Starts a real Paper server on every target version with LogicLib and checks the log.
   paper-test:
     needs: build
     runs-on: ubuntu-latest
@@ -52,15 +52,15 @@ jobs:
           java-version: ${{ matrix.java }}
       - uses: actions/download-artifact@v4
         with:
-          name: cosmiclib-paper-jar
+          name: logiclib-paper-jar
           path: jars
       - name: Download Paper ${{ matrix.mc }}
         run: |
           mkdir -p server/plugins && cd server
           bash ../ci/get-paper.sh "${{ matrix.mc }}"
-          find ../jars -name "cosmiclib-paper-*.jar" ! -name "*-sources.jar" -exec cp {} plugins/ \;
+          find ../jars -name "logiclib-paper-*.jar" ! -name "*-sources.jar" -exec cp {} plugins/ \;
           ls plugins
-      - name: Start server and check CosmicLib
+      - name: Start server and check LogicLib
         run: |
           chmod +x ci/server-test.sh
-          ci/server-test.sh server "CosmicLib for Paper .* running on Minecraft" -- java -Xmx1500M -jar paper.jar nogui
+          ci/server-test.sh server "LogicLib for Paper .* running on Minecraft" -- java -Xmx1500M -jar paper.jar nogui

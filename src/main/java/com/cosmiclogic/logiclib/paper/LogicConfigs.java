@@ -1,4 +1,4 @@
-package com.cosmiclogic.cosmiclib.paper;
+package com.cosmiclogic.logiclib.paper;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -8,14 +8,14 @@ import org.bukkit.plugin.java.JavaPlugin;
  * server owner's other values.
  *
  * <pre>{@code
- * FileConfiguration config = CosmicConfigs.load(this);   // in onEnable()
+ * FileConfiguration config = LogicConfigs.load(this);   // in onEnable()
  * int range = config.getInt("range", 16);
  * }</pre>
  * The plugin must ship a default config.yml in its jar.
  */
-public final class CosmicConfigs {
+public final class LogicConfigs {
 
-    private CosmicConfigs() {
+    private LogicConfigs() {
     }
 
     public static FileConfiguration load(JavaPlugin plugin) {

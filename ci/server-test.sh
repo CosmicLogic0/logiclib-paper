@@ -26,7 +26,7 @@ tail -n 80 server.log
 echo "==================================================="
 if [ "$ok" != "1" ]; then echo "::error::Server did not finish starting"; exit 1; fi
 if ! grep -Eq "$EXPECT" server.log; then echo "::error::Expected log line not found: $EXPECT"; exit 1; fi
-if grep -i "cosmiclib" server.log | grep -Eiq "exception|error|could not load|failed"; then
-  echo "::error::CosmicLib problem in the log:"; grep -i "cosmiclib" server.log | grep -Ei "exception|error|could not load|failed"; exit 1
+if grep -i "logiclib" server.log | grep -Eiq "exception|error|could not load|failed"; then
+  echo "::error::LogicLib problem in the log:"; grep -i "logiclib" server.log | grep -Ei "exception|error|could not load|failed"; exit 1
 fi
-echo "PASS: server started, CosmicLib loaded with no errors."
+echo "PASS: server started, LogicLib loaded with no errors."

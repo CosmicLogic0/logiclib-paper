@@ -1,4 +1,4 @@
-package com.cosmiclogic.cosmiclib.paper;
+package com.cosmiclogic.logiclib.paper;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -9,17 +9,17 @@ import org.bukkit.entity.Player;
  * from 1.12.2 to 26.x. Used for outlines and highlights (e.g. chests, ranges).
  *
  * <pre>{@code
- * CosmicParticles.box(player, minX, minY, minZ, maxX, maxY, maxZ, Color.AQUA);
- * CosmicParticles.circle(player, center, 20, Color.YELLOW);
+ * LogicParticles.box(player, minX, minY, minZ, maxX, maxY, maxZ, Color.AQUA);
+ * LogicParticles.circle(player, center, 20, Color.YELLOW);
  * }</pre>
  * Call it again every second or so to keep a shape visible (particles fade quickly).
  * Each call draws at most {@value #MAX_POINTS} particles to protect the server and the player.
  */
-public final class CosmicParticles {
+public final class LogicParticles {
 
     public static final int MAX_POINTS = 2000;
 
-    private CosmicParticles() {
+    private LogicParticles() {
     }
 
     /** A straight line from a to b, one particle every {@code step} blocks. */
@@ -65,7 +65,7 @@ public final class CosmicParticles {
     /** One colored dust particle for this player only. */
     public static void point(Player player, double x, double y, double z, Color color) {
         try {
-            if (CosmicVersion.current().isAtLeast(1, 13, 0)) {
+            if (LogicVersion.current().isAtLeast(1, 13, 0)) {
                 ModernDust.spawn(player, x, y, z, color);
             } else {
                 LegacyDust.spawn(player, x, y, z, color);

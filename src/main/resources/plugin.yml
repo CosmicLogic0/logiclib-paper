@@ -1,7 +1,7 @@
-name: CosmicLib
+name: LogicLib
 version: '${version}'
-main: com.cosmiclogic.cosmiclib.paper.CosmicLibPlugin
+main: com.cosmiclogic.logiclib.paper.LogicLibPlugin
 api-version: '1.13'
 author: CosmicLogic
-website: https://github.com/CosmicLogic0/cosmiclib-paper
+website: https://github.com/CosmicLogic0/logiclib-paper
 description: Shared code library for CosmicLogic's plugins. Adds no gameplay on its own.

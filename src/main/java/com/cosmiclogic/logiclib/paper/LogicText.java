@@ -1,4 +1,4 @@
-package com.cosmiclogic.cosmiclib.paper;
+package com.cosmiclogic.logiclib.paper;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -7,12 +7,12 @@ import org.bukkit.command.CommandSender;
  * Simple colored chat messages that work on every version (uses &-color codes).
  *
  * <pre>{@code
- * CosmicText.send(player, "&8[&bStash Radar&8]", "&aFound &f3 &achests.");
+ * LogicText.send(player, "&8[&bStash Radar&8]", "&aFound &f3 &achests.");
  * }</pre>
  */
-public final class CosmicText {
+public final class LogicText {
 
-    private CosmicText() {
+    private LogicText() {
     }
 
     /** Turns &-codes (like &a, &l) into colors. */

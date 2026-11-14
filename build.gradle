@@ -3,7 +3,7 @@ plugins {
 }
 
 base {
-    archivesName = 'cosmiclib-paper'
+    archivesName = 'logiclib-paper'
 }
 
 repositories {

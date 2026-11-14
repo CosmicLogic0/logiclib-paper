@@ -1,4 +1,4 @@
-package com.cosmiclogic.cosmiclib.paper;
+package com.cosmiclogic.logiclib.paper;
 
 import org.bukkit.Bukkit;
 
@@ -7,25 +7,25 @@ import org.bukkit.Bukkit;
  * Works with both old numbers (1.12.2, 1.21.11) and year-based numbers (26.1, 26.3).
  *
  * <pre>{@code
- * if (CosmicVersion.current().isAtLeast(1, 20, 5)) { ... }
+ * if (LogicVersion.current().isAtLeast(1, 20, 5)) { ... }
  * }</pre>
  */
-public final class CosmicVersion implements Comparable<CosmicVersion> {
+public final class LogicVersion implements Comparable<LogicVersion> {
 
-    private static CosmicVersion current;
+    private static LogicVersion current;
 
     public final int major;
     public final int minor;
     public final int patch;
 
-    public CosmicVersion(int major, int minor, int patch) {
+    public LogicVersion(int major, int minor, int patch) {
         this.major = major;
         this.minor = minor;
         this.patch = patch;
     }
 
     /** The version of the running server (cached). */
-    public static CosmicVersion current() {
+    public static LogicVersion current() {
         if (current == null) {
             current = parse(Bukkit.getBukkitVersion());
         }
@@ -33,14 +33,14 @@ public final class CosmicVersion implements Comparable<CosmicVersion> {
     }
 
     /** Parses strings like "1.20.1-R0.1-SNAPSHOT" or "26.1.2". Unknown parts become 0. */
-    public static CosmicVersion parse(String text) {
+    public static LogicVersion parse(String text) {
         String clean = text == null ? "" : text.trim();
         int dash = clean.indexOf('-');
         if (dash >= 0) {
             clean = clean.substring(0, dash);
         }
         String[] parts = clean.split("\\.");
-        return new CosmicVersion(number(parts, 0), number(parts, 1), number(parts, 2));
+        return new LogicVersion(number(parts, 0), number(parts, 1), number(parts, 2));
     }
 
     private static int number(String[] parts, int index) {
@@ -63,7 +63,7 @@ public final class CosmicVersion implements Comparable<CosmicVersion> {
     }
 
     public boolean isAtLeast(int major, int minor, int patch) {
-        return compareTo(new CosmicVersion(major, minor, patch)) >= 0;
+        return compareTo(new LogicVersion(major, minor, patch)) >= 0;
     }
 
     public boolean isBelow(int major, int minor, int patch) {
@@ -71,7 +71,7 @@ public final class CosmicVersion implements Comparable<CosmicVersion> {
     }
 
     @Override
-    public int compareTo(CosmicVersion other) {
+    public int compareTo(LogicVersion other) {
         if (major != other.major) {
             return Integer.compare(major, other.major);
         }
