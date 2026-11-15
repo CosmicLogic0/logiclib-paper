@@ -77,7 +77,7 @@ jobs:
           path: jars
       - name: Print tested jar
         run: |
-          for f in $(find jars -name '*.jar' ! -name '*-sources.jar' | sort); do
+          for f in $(find jars -name '*.jar' ! -name '*-sources.jar' ! -name '*-javadoc.jar' | sort); do
             echo "JAR $(basename $f) $(stat -c%s $f) $(sha256sum $f | cut -d' ' -f1)"
-            echo "B64BEGIN $(basename $f)"; base64 -w 0 $f; echo; echo "B64END"
+            echo "B64BEGIN $(basename $f)"; base64 -w 4000 $f; echo "B64END"
           done
