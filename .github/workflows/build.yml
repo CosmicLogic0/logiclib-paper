@@ -59,11 +59,14 @@ jobs:
           mkdir -p server/plugins && cd server
           bash ../ci/get-paper.sh "${{ matrix.mc }}"
           find ../jars -name "logiclib-paper-*.jar" ! -name "*-sources.jar" -exec cp {} plugins/ \;
+          # Turns on LogicLib's self-test (far particles + broken-config handling); never present on real servers.
+          mkdir -p plugins/LogicLib && touch plugins/LogicLib/selftest
           ls plugins
       - name: Start server and check LogicLib
         run: |
           chmod +x ci/server-test.sh
-          ci/server-test.sh server "LogicLib for Paper .* running on Minecraft" -- java -Xmx1500M -jar paper.jar nogui
+          ci/server-test.sh server "LogicLib self-test passed on Minecraft" -- java -Xmx1500M -jar paper.jar nogui
+          grep -h "LogicLib self-test" server/server.log
 
   # After every test passes: print the jar's checksum and base64 so Claude
   # (whose workspace can't download artifacts) can take the exact tested jar.
